@@ -1093,7 +1093,7 @@ bool CIccSegmentedCurve::Read(icUInt32Number size, CIccIO *pIO)
 {
   icElemTypeSignature sig;
 
-  icUInt32Number startPos = pIO->Tell();
+
   
   icUInt32Number headerSize = sizeof(icTagTypeSignature) + 
     sizeof(icUInt32Number) + 
@@ -1106,6 +1106,8 @@ bool CIccSegmentedCurve::Read(icUInt32Number size, CIccIO *pIO)
   if (!pIO) {
     return false;
   }
+
+  icUInt32Number startPos = pIO->Tell();
 
   if (!pIO->Read32(&sig))
     return false;
@@ -1648,8 +1650,7 @@ bool CIccMpeCurveSet::Read(icUInt32Number size, CIccIO *pIO)
 {
   icElemTypeSignature sig;
 
-  icUInt32Number startPos = pIO->Tell();
-  
+
   icUInt32Number headerSize = sizeof(icTagTypeSignature) + 
     sizeof(icUInt32Number) + 
     sizeof(icUInt16Number) + 
@@ -1661,6 +1662,8 @@ bool CIccMpeCurveSet::Read(icUInt32Number size, CIccIO *pIO)
   if (!pIO) {
     return false;
   }
+
+  icUInt32Number startPos = pIO->Tell();
 
   icUInt16Number nInputChannels, nOutputChannels;
 

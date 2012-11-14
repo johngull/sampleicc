@@ -5956,7 +5956,6 @@ bool CIccTagProfileSeqDesc::Read(icUInt32Number size, CIccIO *pIO)
   icTagTypeSignature sig;
   icUInt32Number nCount, nEnd;
 
-  nEnd = pIO->Tell() + size;
 
   if (sizeof(icTagTypeSignature) + 
       sizeof(icUInt32Number)*2 > size)
@@ -5965,6 +5964,8 @@ bool CIccTagProfileSeqDesc::Read(icUInt32Number size, CIccIO *pIO)
   if (!pIO) {
     return false;
   }
+
+  nEnd = pIO->Tell() + size;
  
   if (!pIO->Read32(&sig) ||
       !pIO->Read32(&m_nReserved) ||
