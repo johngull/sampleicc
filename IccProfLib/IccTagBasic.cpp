@@ -6336,11 +6336,17 @@ bool CIccResponseCurveStruct::Read(icUInt32Number size, CIccIO *pIO)
   icUInt32Number* nMeasurements = new icUInt32Number[m_nChannels];
 
   if (pIO->Read32(&nMeasurements[0],m_nChannels) != m_nChannels)
+  {
+    delete[] nMeasurements;
     return false;
+  }
 
   icUInt32Number nNum32 = m_nChannels*sizeof(icXYZNumber)/sizeof(icS15Fixed16Number);
   if (pIO->Read32(&m_maxColorantXYZ[0], nNum32) != (icInt32Number)nNum32)
-  return false;
+  {
+    delete[] nMeasurements;
+    return false;
+  }
 
   icResponse16Number nResponse16;
   CIccResponse16List nResponseList;
@@ -6352,7 +6358,10 @@ bool CIccResponseCurveStruct::Read(icUInt32Number size, CIccIO *pIO)
       if (!pIO->Read16(&nResponse16.deviceCode) ||
          !pIO->Read16(&nResponse16.reserved)   ||
          !pIO->Read32(&nResponse16.measurementValue))
+      {
+        delete[] nMeasurements;
         return false;
+      }
       nResponseList.push_back(nResponse16);
     }
     m_Response16ListArray[i] = nResponseList;
@@ -6397,7 +6406,10 @@ bool CIccResponseCurveStruct::Write(CIccIO *pIO)
       nMeasurements[i] = (icUInt32Number)m_Response16ListArray[i].size();
 
     if (pIO->Write32(&nMeasurements[0],m_nChannels) != m_nChannels)
+    {
+      delete[] nMeasurements;
       return false;
+    }
     delete [] nMeasurements;
 
     icUInt32Number nNum32 = m_nChannels*sizeof(icXYZNumber)/sizeof(icS15Fixed16Number);
@@ -6646,7 +6658,10 @@ bool CIccTagResponseCurveSet16::Read(icUInt32Number size, CIccIO *pIO)
   icUInt32Number* nOffset = new icUInt32Number[nCountMeasmntTypes];
 
   if (pIO->Read32(&nOffset[0], nCountMeasmntTypes) != nCountMeasmntTypes)
+  {
+    delete[] nOffset;
     return false;
+  }
 
   delete [] nOffset;
 
@@ -6706,7 +6721,10 @@ bool CIccTagResponseCurveSet16::Write(CIccIO *pIO)
   for (j=0; j<nCountMeasmntTypes; j++) {
     nOffset[j] = 0;
     if (!pIO->Write32(&nOffset[j]))
+    {
+      delete[] nOffset;
       return false;
+    }
   }
 
   CIccResponseCurveSet::iterator i;
@@ -6714,7 +6732,10 @@ bool CIccTagResponseCurveSet16::Write(CIccIO *pIO)
   for (i=m_ResponseCurves->begin(), j=0; i!=m_ResponseCurves->end(); i++, j++) {
     nOffset[j] = pIO->GetLength() - startPos;
     if (!i->Write(pIO))
+    {
+      delete[] nOffset;
       return false;
+    }
   }
 
   icUInt32Number curPOs = pIO->GetLength();
@@ -6723,7 +6744,10 @@ bool CIccTagResponseCurveSet16::Write(CIccIO *pIO)
 
   for (j=0; j<nCountMeasmntTypes; j++) {
     if (!pIO->Write32(&nOffset[j]))
+    {
+      delete[] nOffset;
       return false;
+    }
   }
 
   pIO->Seek(curPOs,icSeekSet);
