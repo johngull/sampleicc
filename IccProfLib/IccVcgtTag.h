@@ -45,6 +45,8 @@ public:
     virtual bool Read(icUInt32Number size, CIccIO *pIO);
     virtual bool Write(CIccIO *pIO);
     
+    virtual void Describe(std::string &sDescription);
+    
     icUInt16Number channels();
     icUInt16Number entryCount();
 

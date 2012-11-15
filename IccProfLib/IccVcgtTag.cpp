@@ -11,6 +11,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <sstream>
 
 #ifdef USESAMPLEICCNAMESPACE
 namespace sampleICC {
@@ -242,6 +243,31 @@ bool IccVCGTTag::Write(CIccIO *pIO)
             return false;
     
     return true;
+}
+
+/**
+****************************************************************************
+* Name: IccVCGTTag::Describe
+* 
+* Purpose: Dump data associated with the tag to a string
+* 
+* Args: 
+*  sDescription - string to concatenate tag dump to
+*****************************************************************************
+*/
+void IccVCGTTag::Describe(std::string &sDescription)
+{
+    std::stringstream ss;
+    ss << "VCGT LUT" << std::endl;
+    for(int i=0;i<channels_;++i)
+    {
+        ss << "Channel#" << i << std::endl;
+        for(int j=0;j<entryCount_;++j)
+            ss << curves_[j+i*entryCount_] << std::endl;
+        ss << std::endl;
+    }
+    ss << std::endl;
+    sDescription += ss.str();
 }
 
 /**
