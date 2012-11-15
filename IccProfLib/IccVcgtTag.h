@@ -19,6 +19,14 @@ enum
     icSigVCGTType                      = 0x76636774,  /* 'vcgt' */
 };
 
+/**
+ ***********************************************************************
+ * Class: IIccTagFactory
+ *
+ * Purpose:
+ * The VCGT tag type
+ ***********************************************************************
+ */
 class ICCPROFLIB_API IccVCGTTag : public CIccTag
 {
 public:
