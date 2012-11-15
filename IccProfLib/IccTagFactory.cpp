@@ -74,6 +74,8 @@
 #include "IccUtil.h"
 #include "IccProfile.h"
 
+#include "IccVCGTTag.h"
+
 #ifdef USESAMPLEICCNAMESPACE
 namespace sampleICC {
 #endif
@@ -172,6 +174,10 @@ CIccTag* CIccSpecTagFactory::CreateTag(icTagTypeSignature tagSig)
 
     case icSigProfileSequceIdType:
       return new CIccTagProfileSequenceId;
+
+    case icSigVCGTType:
+      return new IccVCGTTag;
+
 
     case icSigScreeningType:
     case icSigUcrBgType:
