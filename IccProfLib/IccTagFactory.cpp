@@ -379,7 +379,10 @@ const icChar* CIccSpecTagFactory::GetTagSigName(icTagSignature tagSig)
 
   case icSigSaturationRenderingIntentGamutTag:
     return "saturationRenderingIntentGamutTag";
-
+    
+  case icSigVCGTType:
+    return "vcgt(graphicCardLUT) Tag";    
+     
   default:
     return NULL;
   }
@@ -490,6 +493,9 @@ const icChar* CIccSpecTagFactory::GetTagTypeSigName(icTagTypeSignature tagSig)
 
   case icSigProfileSequceIdType:
     return "profileSequenceIdentifierType";
+    
+  case icSigVCGTType:
+    return "vcgt(graphicCardLUT) Type";    
 
   default:
     return NULL;
