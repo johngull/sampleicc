@@ -205,6 +205,9 @@ CIccMpeUnknown::CIccMpeUnknown(const CIccMpeUnknown &elem)
  ******************************************************************************/
 CIccMpeUnknown &CIccMpeUnknown::operator=(const CIccMpeUnknown &elem)
 {
+  if(&elem==this)
+    return *this;
+
   if (m_pData)
     free(m_pData);
 
@@ -531,6 +534,9 @@ CIccDblPixelBuffer::CIccDblPixelBuffer(const CIccDblPixelBuffer &buf)
  ******************************************************************************/
 CIccDblPixelBuffer& CIccDblPixelBuffer::operator=(const CIccDblPixelBuffer &buf)
 {
+  if(&buf==this)
+    return *this;
+
   Clean();
 
   m_nMaxChannels = buf.m_nMaxChannels;
@@ -754,6 +760,9 @@ CIccTagMultiProcessElement::CIccTagMultiProcessElement(const CIccTagMultiProcess
  ******************************************************************************/
 CIccTagMultiProcessElement &CIccTagMultiProcessElement::operator=(const CIccTagMultiProcessElement &lut)
 {
+  if(&lut==this)
+    return *this;
+
   Clean();
 
   m_nReserved = lut.m_nReserved;

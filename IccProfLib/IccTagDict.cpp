@@ -146,6 +146,9 @@ CIccDictEntry::CIccDictEntry(const CIccDictEntry& IDE)
 ******************************************************************************/
 CIccDictEntry &CIccDictEntry::operator=(const CIccDictEntry &IDE)
 {
+  if(&IDE==this)
+    return *this;
+
   if (m_pNameLocalized)
     delete m_pNameLocalized;
 
