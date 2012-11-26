@@ -1486,7 +1486,8 @@ CIccMpeCurveSet &CIccMpeCurveSet::operator=(const CIccMpeCurveSet &curveSet)
   m_nReserved = m_nReserved;
 
   if (m_curve) {
-    delete [] m_curve;
+    free(m_curve);
+	m_curve = NULL;
   }
 
   if (curveSet.m_nInputChannels) {
@@ -1584,19 +1585,17 @@ void CIccMpeCurveSet::SetSize(int nNewSize)
  ******************************************************************************/
 bool CIccMpeCurveSet::SetCurve(int nIndex, icCurveSetCurvePtr newCurve)
 {
-  if (nIndex<0 || nIndex>m_nInputChannels)
+  if (nIndex<0 || nIndex>m_nInputChannels || !mcurve)
     return false;
 
-  if (m_curve) {
-    int i;
+  int i;
 
-    for (i=0; i<m_nInputChannels; i++)
-      if (i!=nIndex && m_curve[i]==m_curve[nIndex])
-        break;
+  for (i=0; i<m_nInputChannels; i++)
+    if (i!=nIndex && m_curve[i]==m_curve[nIndex])
+      break;
 
-    if (i==m_nInputChannels && m_curve[nIndex]) {
-      delete m_curve[nIndex];
-    }
+  if (i==m_nInputChannels && m_curve[nIndex]) {
+    delete m_curve[nIndex];
   }
   m_curve[nIndex] = newCurve;
   
