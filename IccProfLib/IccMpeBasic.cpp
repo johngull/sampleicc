@@ -147,6 +147,9 @@ CIccFormulaCurveSegment::CIccFormulaCurveSegment(const CIccFormulaCurveSegment &
  ******************************************************************************/
 CIccFormulaCurveSegment &CIccFormulaCurveSegment::operator=(const CIccFormulaCurveSegment &seg)
 {
+  if(&seg==this)
+    return *this;
+
   if (m_params)
     free(m_params);
 
@@ -613,6 +616,9 @@ CIccSampledCurveSegment::CIccSampledCurveSegment(const CIccSampledCurveSegment &
  ******************************************************************************/
 CIccSampledCurveSegment &CIccSampledCurveSegment::operator=(const CIccSampledCurveSegment &curve)
 {
+  if(&curve==this)
+    return *this;
+
   if (m_pSamples)
     free(m_pSamples);
 
@@ -1026,6 +1032,9 @@ CIccSegmentedCurve::CIccSegmentedCurve(const CIccSegmentedCurve &curve)
  ******************************************************************************/
 CIccSegmentedCurve &CIccSegmentedCurve::operator=(const CIccSegmentedCurve &curve)
 {
+  if(&curve==this)
+    return *this;
+
   Reset();
 
   CIccCurveSegmentList::iterator i;
@@ -1483,6 +1492,9 @@ CIccMpeCurveSet::CIccMpeCurveSet(const CIccMpeCurveSet &curveSet)
  ******************************************************************************/
 CIccMpeCurveSet &CIccMpeCurveSet::operator=(const CIccMpeCurveSet &curveSet)
 {
+  if(&curveSet==this)
+    return *this;
+
   m_nReserved = m_nReserved;
 
   if (m_curve) {
@@ -1585,7 +1597,7 @@ void CIccMpeCurveSet::SetSize(int nNewSize)
  ******************************************************************************/
 bool CIccMpeCurveSet::SetCurve(int nIndex, icCurveSetCurvePtr newCurve)
 {
-  if (nIndex<0 || nIndex>m_nInputChannels || !mcurve)
+  if (nIndex<0 || nIndex>m_nInputChannels || !m_curve)
     return false;
 
   int i;
@@ -1973,6 +1985,9 @@ CIccMpeMatrix::CIccMpeMatrix(const CIccMpeMatrix &matrix)
  ******************************************************************************/
 CIccMpeMatrix &CIccMpeMatrix::operator=(const CIccMpeMatrix &matrix)
 {
+  if(&matrix==this)
+    return *this;
+
   m_nReserved = matrix.m_nReserved;
 
   m_nInputChannels = matrix.m_nInputChannels;
@@ -2360,6 +2375,9 @@ CIccMpeCLUT::CIccMpeCLUT(const CIccMpeCLUT &clut)
  ******************************************************************************/
 CIccMpeCLUT &CIccMpeCLUT::operator=(const CIccMpeCLUT &clut)
 {
+  if(&clut==this)
+    return *this;
+
   if (m_pCLUT)
     delete m_pCLUT;
 
